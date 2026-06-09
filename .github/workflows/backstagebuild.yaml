@@ -39,12 +39,18 @@ jobs:
           cd backstage
           yarn install --immutable
 
-      - name: Build Backstage Backend
+      # --- FIX 1: Compile the entire codebase topology first ---
+      - name: Type Check and Build Packages
         run: |
           cd backstage
-          yarn build:backend \
-            --config ../../app-config.yaml  \
-            --config ../../app-config.production.yaml
+          yarn tsc
+          yarn build:all
+
+      # --- FIX 2: Generate production bundles inside the correct working directory ---
+      - name: Build Backstage Backend Bundle
+        run: |
+          cd backstage
+          yarn build:backend --directory packages/backend/dist
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -57,11 +63,12 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
+      # --- FIX 3: Shift the Docker context into the backstage folder ---
       - name: Build Docker Image
         run: |
           docker build \
             -t ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ env.COMMIT_ID }} \
-            .
+            ./backstage
 
       - name: Push Docker Image
         run: |
