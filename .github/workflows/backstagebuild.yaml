@@ -36,7 +36,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          cd backstage
+          working-directory: backstage
           yarn install --immutable
 
       - name: Build Backstage Backend
