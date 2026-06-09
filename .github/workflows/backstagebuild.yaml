@@ -37,10 +37,12 @@ jobs:
       - name: Install Dependencies
         working-directory: backstage
         run: |
+          cd backstage
           yarn install --immutable
 
       - name: Build Backstage Backend
         run: |
+          cd backstage
           yarn build:backend \
             --config app-config.yaml \
             --config app-config.production.yaml
