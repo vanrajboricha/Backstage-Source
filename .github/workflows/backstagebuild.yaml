@@ -35,8 +35,8 @@ jobs:
           corepack enable
 
       - name: Install Dependencies
+        working-directory: backstage
         run: |
-          working-directory: backstage
           yarn install --immutable
 
       - name: Build Backstage Backend
