@@ -1,5 +1,3 @@
-Here's a professional README you can use for your Backstage repository.
-
 # Backstage Deployment on Kubernetes
 
 ## Overview
