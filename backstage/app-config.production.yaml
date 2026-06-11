@@ -3,9 +3,9 @@ app:
   listen:
     host: 0.0.0.0
     port: 7007
-  baseUrl: http://localhost:7007
+  baseUrl: ${APP_CONFIG_app_baseUrl}
 backend:
-  baseUrl: http://localhost:7007
+  baseUrl: ${APP_CONFIG_backend_baseUrl}
   listen:
     port: 7007
     host: 0.0.0.0
@@ -54,6 +54,10 @@ catalog:
       rules:
         - allow: [Template]
 
+    - type: url
+      target: https://github.com/vanrajboricha/backstage-software-template/blob/main/nodejs/template.yaml
+      rules:
+        - allow: [Template]
 
 techdocs:
   builder: 'local'
