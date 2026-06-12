@@ -7,9 +7,10 @@ import { SignInPage } from '@backstage/core-components';
 import { createFrontendModule } from '@backstage/frontend-plugin-api';
 import { techDocsReportIssueAddonModule } from '@backstage/plugin-techdocs-module-addons-contrib/alpha';
 import githubActionsPlugin from '@backstage-community/plugin-github-actions/alpha';
-import { prometheusPlugin } from '@roadiehq/backstage-plugin-prometheus/alpha';
+//import { prometheusPlugin } from '@roadiehq/backstage-plugin-prometheus/alpha';
 import grafanaPlugin from '@backstage-community/plugin-grafana/alpha';
 
+import { EntityPrometheusContent, EntityPrometheusAlertCard } from '@roadiehq/backstage-plugin-prometheus';
 
 const signInPage = SignInPageBlueprint.make({
   params: {
@@ -28,12 +29,35 @@ const signInPage = SignInPageBlueprint.make({
   },
 });
 
+const prometheusTabExtension = EntityContentBlueprint.make({
+  name: 'prometheus-tab',
+  params: {
+    path: '/prometheus',
+    title: 'Metrics',
+    loader: async () => <EntityPrometheusContent />,
+  },
+});
+
+// 3. Optional: Wrap the Prometheus Alert Card into an Overview Card Extension
+const prometheusAlertCardExtension = EntityCardBlueprint.make({
+  name: 'prometheus-alert-card',
+  params: {
+    loader: async () => <EntityPrometheusAlertCard />,
+  },
+});
+
+// 4. Combine the extensions into a declarative module bound to the Catalog Plugin
+const customPrometheusModule = createFrontendModule({
+  pluginId: 'catalog', 
+  extensions: [prometheusTabExtension, prometheusAlertCardExtension],
+});
+
 export default createApp({
   features: [
     catalogPlugin,
     techDocsReportIssueAddonModule,
     navModule,
-    prometheusPlugin,
+//    prometheusPlugin,
     grafanaPlugin,
     githubActionsPlugin,
     createFrontendModule({
