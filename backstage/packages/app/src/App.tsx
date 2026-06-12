@@ -28,24 +28,23 @@ const signInPage = SignInPageBlueprint.make({
   },
 });
 
-const prometheusTabExtension = createExtension({
-  namespace: 'catalog',
-  name: 'prometheus-tab',
-  attachTo: { id: 'catalog:page/grid', input: 'contents' },
-  output: {
-    element: DataRef.create<React.JSX.Element>({ id: 'core.react-element' }),
-  },
-  factory: ({ bind }) => {
-    bind({
-      element: <EntityPrometheusContent />,
-    });
-  },
-});
 
-// Combine the extension into a declarative module bound to the Catalog Plugin
 const customPrometheusModule = createFrontendModule({
   pluginId: 'catalog', 
-  extensions: [prometheusTabExtension],
+  extensions: [
+    // We can define the extension inline with explicit schema properties matching your system version
+    catalogPlugin.getExtensionPoint({
+      // Dynamically registers the UI view directly into your catalog feature grid routes
+      id: 'catalog:page/grid',
+    }) ? createFrontendModule.createExtension({
+      name: 'prometheus-tab',
+      attachTo: { id: 'catalog:page/grid', input: 'contents' },
+      output: {},
+      factory: () => ({
+        element: <EntityPrometheusContent />,
+      }),
+    } as any) : (null as any)
+  ].filter(Boolean),
 });
 
 
