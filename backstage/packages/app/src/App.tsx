@@ -5,7 +5,6 @@ import { githubAuthApiRef } from '@backstage/core-plugin-api';
 import { SignInPageBlueprint } from '@backstage/plugin-app-react';
 import { SignInPage } from '@backstage/core-components';
 import { createFrontendModule, createExtension } from '@backstage/frontend-plugin-api';
-import { createFrontendModule } from '@backstage/frontend-plugin-api';
 import { techDocsReportIssueAddonModule } from '@backstage/plugin-techdocs-module-addons-contrib/alpha';
 import githubActionsPlugin from '@backstage-community/plugin-github-actions/alpha';
 //import { prometheusPlugin } from '@roadiehq/backstage-plugin-prometheus/alpha';
