@@ -7,8 +7,8 @@ import { SignInPage } from '@backstage/core-components';
 import { createFrontendModule } from '@backstage/frontend-plugin-api';
 import { techDocsReportIssueAddonModule } from '@backstage/plugin-techdocs-module-addons-contrib/alpha';
 import githubActionsPlugin from '@backstage-community/plugin-github-actions/alpha';
-import { prometheusPlugin } from '@roadiehq/backstage-plugin-prometheus';
-import { grafanaPlugin } from '@backstage-community/plugin-grafana';
+import { prometheusPlugin } from '@roadiehq/backstage-plugin-prometheus/alpha';
+import grafanaPlugin from '@backstage-community/plugin-grafana/alpha';
 
 
 const signInPage = SignInPageBlueprint.make({
