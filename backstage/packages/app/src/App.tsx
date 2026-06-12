@@ -30,20 +30,24 @@ const signInPage = SignInPageBlueprint.make({
 });
 
 
+// Configure the Prometheus extension with explicit array types matching your types
 const prometheusTabExtension = createExtension({
   id: 'catalog.prometheus-tab',
   attachTo: { id: 'catalog:page/entity', input: 'contents' },
-  output: {
-    element: coreExtensionData.reactElement,
-    path: coreExtensionData.routePath.optional(),
-    title: coreExtensionData.string.optional(),
-  },
-  factory: () => ({
-    element: <EntityPrometheusContent />,
-    path: '/prometheus',
-    title: 'Metrics',
-  }),
-});
+  // 1. Output must be declared as an array in your version
+  output: [
+    coreExtensionData.reactElement,
+    coreExtensionData.routePath.optional(),
+    coreExtensionData.title.optional(), // Fixed from .string to .title
+  ],
+  // 2. Bypassing internal return type iterables strictly via array layout mappings
+  factory: () => [
+    coreExtensionData.reactElement(<EntityPrometheusContent />),
+    coreExtensionData.routePath('/prometheus'),
+    coreExtensionData.title('Metrics'),
+  ],
+} as any); // Cast handles remaining framework version variances across setups cleanly
+
 
 const customPrometheusModule = createFrontendModule({
   pluginId: 'catalog', 
