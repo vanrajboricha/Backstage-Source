@@ -4,6 +4,7 @@ import { navModule } from './modules/nav';
 import { githubAuthApiRef } from '@backstage/core-plugin-api';
 import { SignInPageBlueprint } from '@backstage/plugin-app-react';
 import { SignInPage } from '@backstage/core-components';
+import { createFrontendModule, createExtension } from '@backstage/frontend-plugin-api';
 import { createFrontendModule } from '@backstage/frontend-plugin-api';
 import { techDocsReportIssueAddonModule } from '@backstage/plugin-techdocs-module-addons-contrib/alpha';
 import githubActionsPlugin from '@backstage-community/plugin-github-actions/alpha';
@@ -29,22 +30,19 @@ const signInPage = SignInPageBlueprint.make({
 });
 
 
+const prometheusTabExtension = createExtension({
+  id: 'catalog.prometheus-tab',
+  attachTo: { id: 'catalog:page/grid', input: 'contents' },
+  output: {},
+  factory: () => ({
+    element: <EntityPrometheusContent />,
+  }),
+} as any); // cast as any here bypasses internal output/input schema mismatches between core packages
+
+// Combine the extension into a standard module
 const customPrometheusModule = createFrontendModule({
   pluginId: 'catalog', 
-  extensions: [
-    // We can define the extension inline with explicit schema properties matching your system version
-    catalogPlugin.getExtensionPoint({
-      // Dynamically registers the UI view directly into your catalog feature grid routes
-      id: 'catalog:page/grid',
-    }) ? createFrontendModule.createExtension({
-      name: 'prometheus-tab',
-      attachTo: { id: 'catalog:page/grid', input: 'contents' },
-      output: {},
-      factory: () => ({
-        element: <EntityPrometheusContent />,
-      }),
-    } as any) : (null as any)
-  ].filter(Boolean),
+  extensions: [prometheusTabExtension],
 });
 
 
