@@ -11,6 +11,7 @@ import githubActionsPlugin from '@backstage-community/plugin-github-actions/alph
 import grafanaPlugin from '@backstage-community/plugin-grafana/alpha';
 //import { EntityPrometheusContent } from '@roadiehq/backstage-plugin-prometheus';
 import { EntityPrometheusContent } from '@roadiehq/backstage-plugin-prometheus';
+import argocdPlugin from '@roadiehq/backstage-plugin-argo-cd/alpha';
 
 const signInPage = SignInPageBlueprint.make({
   params: {
@@ -62,6 +63,7 @@ export default createApp({
 //    prometheusPlugin,
     customPrometheusModule,
     grafanaPlugin,
+    argocdPlugin,
     githubActionsPlugin,
     createFrontendModule({
       pluginId: 'app',

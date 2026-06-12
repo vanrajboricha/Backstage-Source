@@ -70,6 +70,12 @@ proxy:
     headers:
       Authorization: Bearer ${GRAFANA_TOKEN}
 
+
+argocd:
+  baseUrl: https://argocd-server.argocd.svc.cluster.local
+  username: admin
+  password: ${ARGOCD_PASSWORD}
+
 prometheus:
   proxyPath: /prometheus/api
 
