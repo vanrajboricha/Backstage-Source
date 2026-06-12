@@ -33,8 +33,8 @@ export default createApp({
     catalogPlugin,
     techDocsReportIssueAddonModule,
     navModule,
-    prometheusPlugin
-    grafanaPlugin
+    prometheusPlugin,
+    grafanaPlugin,
     githubActionsPlugin,
     createFrontendModule({
       pluginId: 'app',
