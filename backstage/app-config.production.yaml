@@ -59,6 +59,23 @@ catalog:
       rules:
         - allow: [Template]
 
+proxy:
+  '/prometheus/api':
+    target: ${PROMETHEUS_URL}
+    changeOrigin: true
+    secure: false
+
+  '/grafana/api':
+    target: ${GRAFANA_URL}
+    headers:
+      Authorization: Bearer ${GRAFANA_TOKEN}
+
+prometheus:
+  proxyPath: /prometheus/api
+
+grafana:
+  domain: ${GRAFANA_URL}
+
 techdocs:
   builder: 'local'
   publisher:
