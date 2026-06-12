@@ -58,6 +58,7 @@ export default createApp({
     techDocsReportIssueAddonModule,
     navModule,
 //    prometheusPlugin,
+    customPrometheusModule,
     grafanaPlugin,
     githubActionsPlugin,
     createFrontendModule({
