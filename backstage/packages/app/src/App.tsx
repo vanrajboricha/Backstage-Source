@@ -4,11 +4,12 @@ import { navModule } from './modules/nav';
 import { githubAuthApiRef } from '@backstage/core-plugin-api';
 import { SignInPageBlueprint } from '@backstage/plugin-app-react';
 import { SignInPage } from '@backstage/core-components';
-import { createFrontendModule, createExtension } from '@backstage/frontend-plugin-api';
+import { createFrontendModule, createExtension, coreExtensionData } from '@backstage/frontend-plugin-api';
 import { techDocsReportIssueAddonModule } from '@backstage/plugin-techdocs-module-addons-contrib/alpha';
 import githubActionsPlugin from '@backstage-community/plugin-github-actions/alpha';
 //import { prometheusPlugin } from '@roadiehq/backstage-plugin-prometheus/alpha';
 import grafanaPlugin from '@backstage-community/plugin-grafana/alpha';
+//import { EntityPrometheusContent } from '@roadiehq/backstage-plugin-prometheus';
 import { EntityPrometheusContent } from '@roadiehq/backstage-plugin-prometheus';
 
 const signInPage = SignInPageBlueprint.make({
@@ -29,21 +30,25 @@ const signInPage = SignInPageBlueprint.make({
 });
 
 
-const customPrometheusModule = createFrontendModule({
-  pluginId: 'catalog', 
-  extensions: [
-    createExtension({
-      id: 'catalog.prometheus-tab',
-      // Switch target to catalog entity content pages explicitly
-      attachTo: { id: 'catalog:page/entity', input: 'contents' },
-      output: {},
-      factory: () => ({
-        element: <EntityPrometheusContent />,
-      }),
-    } as any)
-  ],
+const prometheusTabExtension = createExtension({
+  id: 'catalog.prometheus-tab',
+  attachTo: { id: 'catalog:page/entity', input: 'contents' },
+  output: {
+    element: coreExtensionData.reactElement,
+    path: coreExtensionData.routePath.optional(),
+    title: coreExtensionData.string.optional(),
+  },
+  factory: () => ({
+    element: <EntityPrometheusContent />,
+    path: '/prometheus',
+    title: 'Metrics',
+  }),
 });
 
+const customPrometheusModule = createFrontendModule({
+  pluginId: 'catalog', 
+  extensions: [prometheusTabExtension],
+});
 
 export default createApp({
   features: [
