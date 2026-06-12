@@ -29,19 +29,19 @@ const signInPage = SignInPageBlueprint.make({
 });
 
 
-const prometheusTabExtension = createExtension({
-  id: 'catalog.prometheus-tab',
-  attachTo: { id: 'catalog:page/grid', input: 'contents' },
-  output: {},
-  factory: () => ({
-    element: <EntityPrometheusContent />,
-  }),
-} as any); // cast as any here bypasses internal output/input schema mismatches between core packages
-
-// Combine the extension into a standard module
 const customPrometheusModule = createFrontendModule({
   pluginId: 'catalog', 
-  extensions: [prometheusTabExtension],
+  extensions: [
+    createExtension({
+      id: 'catalog.prometheus-tab',
+      // Switch target to catalog entity content pages explicitly
+      attachTo: { id: 'catalog:page/entity', input: 'contents' },
+      output: {},
+      factory: () => ({
+        element: <EntityPrometheusContent />,
+      }),
+    } as any)
+  ],
 });
 
 
