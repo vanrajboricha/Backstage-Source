@@ -36,7 +36,7 @@ auth:
 
 catalog:
   rules:
-    - allow: [Component, System, API, Resource, Location]
+    - allow: [Component, System, API, Resource, Location, Template]
   locations:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
     - type: file
@@ -60,15 +60,13 @@ catalog:
         - allow: [Template]
 
 proxy:
-  '/prometheus/api':
-    target: ${PROMETHEUS_URL}
-    changeOrigin: true
-    secure: false
-
-      #  '/grafana/api':
-      # target: ${GRAFANA_URL}
-      # headers:
-      #  Authorization: Bearer ${GRAFANA_TOKEN}
+  endpoints:                          # ← add this level
+    '/prometheus/api':
+      target: ${PROMETHEUS_URL}
+      changeOrigin: true
+      secure: false
+      pathRewrite:
+        '^/api/proxy/prometheus/api/?': '/'
 
 
 argocd:
@@ -80,8 +78,9 @@ prometheus:
   proxyPath: /prometheus/api
 
 grafana:
-  domain: ${GRAFANA_URL}
   token: ${GRAFANA_TOKEN}
+  hosts:
+    - domain: ${GRAFANA_URL}
 
 techdocs:
   builder: 'local'
