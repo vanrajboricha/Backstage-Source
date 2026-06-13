@@ -80,7 +80,8 @@ prometheus:
 grafana:
   token: ${GRAFANA_TOKEN}
   hosts:
-    - domain: ${GRAFANA_URL}
+    - id: default
+      domain: ${GRAFANA_URL}
 
 techdocs:
   builder: 'local'
