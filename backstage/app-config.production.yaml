@@ -59,6 +59,18 @@ catalog:
       rules:
         - allow: [Template]
 
+    # ── Add terraform template ──────────────────────────────────
+    - type: url
+      target: https://github.com/vanrajboricha/backstage-software-template/blob/main/terraform-templates/template.yaml
+      rules:
+        - allow: [Template]
+
+    # ── Add terraform-infra repo for auto-discovery ─────────────
+    - type: url
+      target: https://github.com/vanrajboricha/terraform-infra/blob/main/catalog-info.yaml
+      rules:
+        - allow: [Resource]          
+
 proxy:
   endpoints:                          # ← add this level
     '/prometheus/api':
