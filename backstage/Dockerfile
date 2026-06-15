@@ -7,7 +7,16 @@ ENV PYTHON=/usr/bin/python3
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     apt-get update && \
-    apt-get install -y --no-install-recommends python3 python3-pip python3-venv g++ build-essential && \
+    apt-get install -y --no-install-recommends \
+        python3 python3-pip python3-venv g++ build-essential \
+        gnupg software-properties-common curl wget lsb-release && \
+    # Download and trust the completely refreshed official HashiCorp GPG Archive Keyring
+    wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null && \
+    # Map the verified repository source structure matching the current OS architecture distribution
+    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list && \
+    # Refetch repository indexing lists and cleanly provision the native Terraform CLI binary engine
+    apt-get update && \
+    apt-get install -y --no-install-recommends terraform && \
     rm -rf /var/lib/apt/lists/*
 
 # From here on we use the least-privileged `node` user to run the backend.
