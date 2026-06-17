@@ -57,6 +57,9 @@ backend.add(import('@backstage/plugin-search-backend-module-pg'));
 backend.add(import('@backstage/plugin-search-backend-module-catalog'));
 backend.add(import('@backstage/plugin-search-backend-module-techdocs'));
 
+//SOnarQube
+backend.add(import('@backstage-community/plugin-sonarqube-backend'));
+
 // kubernetes plugin
 // backend.add(import('@backstage/plugin-kubernetes-backend'));
 

@@ -80,6 +80,9 @@ proxy:
       pathRewrite:
         '^/api/proxy/prometheus/api/?': '/'
 
+sonarqube:
+  baseUrl: ${SONARQUBE_BASEURL}
+  apiKey: ${SONARQUBE_TOKEN}
 
 argocd:
   baseUrl: https://argocd-server.argocd.svc.cluster.local
