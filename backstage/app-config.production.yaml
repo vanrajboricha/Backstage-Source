@@ -79,6 +79,12 @@ proxy:
       secure: false
       pathRewrite:
         '^/api/proxy/prometheus/api/?': '/'
+    '/argocd/api':
+      target: https://argocd-server.argocd.svc.cluster.local/api/v1
+      changeOrigin: true
+      # Set to false if your internal cluster ArgoCD uses self-signed TLS certificates
+      secure: false
+
 
 sonarqube:
   baseUrl: ${SONARQUBE_BASEURL}
@@ -86,8 +92,13 @@ sonarqube:
 
 argocd:
   baseUrl: https://argocd-server.argocd.svc.cluster.local
-  username: admin
-  password: ${ARGOCD_PASSWORD}
+  # Switch from username/password to a secure API token
+  appLocatorMethods:
+    - type: 'config'
+      instances:
+        - name: main
+          url: https://argocd-server.argocd.svc.cluster.local
+          token: ${ARGOCD_AUTH_TOKEN}
 
 prometheus:
   proxyPath: /prometheus/api
