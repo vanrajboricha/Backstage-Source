@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backstage
-          image: 1rajboricha/backstage-k8s:v1
+          image: backstage-custom:v4
           ports:
             - containerPort: 7007
           env:
