@@ -19,7 +19,20 @@ backend:
       password: ${POSTGRES_PASSWORD}
 
 auth:
-  dangerouslyDisableDefaultAuthPolicy: true
+  environment: production
+  providers:
+    github:
+      production:
+        clientId: ${AUTH_GITHUB_CLIENT_ID}
+        clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+        ## uncomment if using GitHub Enterprise
+        # enterpriseInstanceUrl: ${AUTH_GITHUB_ENTERPRISE_INSTANCE_URL}
+        signIn:
+          resolvers:
+            # Matches the GitHub username with the Backstage user entity name.
+            # See https://backstage.io/docs/auth/github/provider#resolvers for more resolvers.
+            - resolver: usernameMatchingUserEntityName
+
 
 catalog:
   rules:
@@ -58,29 +71,19 @@ catalog:
       rules:
         - allow: [Resource]          
 
-  providers:
-    awsS3:
-      bucketName: tfstate-vanbor-s3-ap-south-1-t4hb
-      prefix: /
-      region: ap-south-1
-      schedule:
-        # 🌟 Triggers the catalog processor exactly once every 24 hours
-        frequency: { hours: 24 }
-        # Increased to 10 minutes to allow ample processing time for 24-hour cycles
-        timeout: { minutes: 10 }
-
 proxy:
   endpoints:                          # ← add this level
     '/prometheus/api':
       target: ${PROMETHEUS_URL}
       changeOrigin: true
       secure: false
+      pathRewrite:
+        '^/api/proxy/prometheus/api/?': '/'
     '/argocd/api':
-      target: ${ARGOCD_BASEURL}/api/v1
+      target: https://argocd-server.argocd.svc.cluster.local/api/v1
       changeOrigin: true
       # Set to false if your internal cluster ArgoCD uses self-signed TLS certificates
       secure: false
-
 
 
 sonarqube:
@@ -88,15 +91,14 @@ sonarqube:
   apiKey: ${SONARQUBE_TOKEN}
 
 argocd:
-  baseUrl: ${ARGOCD_BASEURL}
+  baseUrl: https://argocd-server.argocd.svc.cluster.local
   # Switch from username/password to a secure API token
   appLocatorMethods:
     - type: 'config'
       instances:
         - name: main
-          url: ${ARGOCD_BASEURL}
-          username: ${ARGOCD_USERNAME}
-          password: ${ARGOCD_PASSWORD}
+          url: https://argocd-server.argocd.svc.cluster.local
+          token: ${ARGOCD_AUTH_TOKEN}
 
 prometheus:
   proxyPath: /prometheus/api
@@ -114,19 +116,6 @@ techdocs:
   generator:
     runIn: local
 
-      #kubernetes:
-      # serviceLocatorMethod:
-      # type: multiTenant
-
-      # clusterLocatorMethods:
-      #- type: config
-      #clusters:
-      # - name: eks-cluster                          # display name in Backstage
-      #    url: ${K8S_URL}                            # EKS API server URL
-      #    authProvider: serviceAccount
-      #    skipTLSVerify: true                        # for self-signed certs
-      #    serviceAccountToken: ${K8S_SA_TOKEN}       # SA token
-
 
 integrations:
   github:
@@ -134,6 +123,3 @@ integrations:
       # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
       # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/locations#configuration
       token: ${GITHUB_TOKEN}
-  awsS3:
-    - accessKeyId: ${AWS_ACCESS_KEY_ID}
-      secretAccessKey: ${AWS_SECRET_ACCESS_KEY}
