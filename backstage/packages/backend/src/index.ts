@@ -64,7 +64,7 @@ backend.add(import('@backstage/plugin-catalog-backend-module-azure'));
 backend.add(import('@backstage-community/plugin-sonarqube-backend'));
 
 // kubernetes plugin
-backend.add(import('@backstage/plugin-kubernetes-backend'));
+//backend.add(import('@backstage/plugin-kubernetes-backend'));
 
 // notifications and signals plugins
 backend.add(import('@backstage/plugin-notifications-backend'));

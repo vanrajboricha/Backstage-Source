@@ -128,18 +128,18 @@ techdocs:
   generator:
     runIn: local
 
-kubernetes:
-  serviceLocatorMethod:
-    type: multiTenant
+      #kubernetes:
+      # serviceLocatorMethod:
+      # type: multiTenant
 
-  clusterLocatorMethods:
-    - type: config
-      clusters:
-        - name: eks-cluster                          # display name in Backstage
-          url: ${K8S_URL}                            # EKS API server URL
-          authProvider: serviceAccount
-          skipTLSVerify: true                        # for self-signed certs
-          serviceAccountToken: ${K8S_SA_TOKEN}       # SA token
+      # clusterLocatorMethods:
+      #- type: config
+      #clusters:
+      # - name: eks-cluster                          # display name in Backstage
+      #    url: ${K8S_URL}                            # EKS API server URL
+      #    authProvider: serviceAccount
+      #    skipTLSVerify: true                        # for self-signed certs
+      #    serviceAccountToken: ${K8S_SA_TOKEN}       # SA token
 
 
 integrations:
