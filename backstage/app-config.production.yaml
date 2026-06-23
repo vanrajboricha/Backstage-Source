@@ -28,11 +28,9 @@ auth:
         signIn:
           resolvers:
             # Change this to the lenient profile resolver:
-            - resolver: emailMatchingUserEntityProfileEmail
-            # Fallback if email doesn't perfectly match:
-            - resolver: emailLocalPartMatchingUserEntityName
+            - resolver: usernameMatchingUserEntityName
     guest:
-      dangerouslyAllowOutsideDevelopment: false
+      dangerouslyAllowOutsideDevelopment: true
 
 
 catalog:

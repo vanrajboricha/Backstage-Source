@@ -1,4 +1,4 @@
-FROM node:20-bookworm-slim
+FROM node:24-trixie-slim
 
 # Set Python interpreter for `node-gyp` to use
 ENV PYTHON=/usr/bin/python3
@@ -12,8 +12,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
         gnupg curl wget && \
     # Download and trust the completely refreshed official HashiCorp GPG Archive Keyring
     wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null && \
-    # Hardcode 'bookworm' directly since lsb-release is not found in the slim variant
-    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com bookworm main" | tee /etc/apt/sources.list.d/hashicorp.list && \
+    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com trixie main" | tee /etc/apt/sources.list.d/hashicorp.list && \
     # Refetch repository indexing lists and cleanly provision the native Terraform CLI binary engine
     apt-get update && \
     apt-get install -y --no-install-recommends terraform && \

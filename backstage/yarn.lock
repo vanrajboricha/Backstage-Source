@@ -3364,15 +3364,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-auth-backend-module-github-provider@npm:^0.5.4":
-  version: 0.5.4
-  resolution: "@backstage/plugin-auth-backend-module-github-provider@npm:0.5.4"
+"@backstage/plugin-auth-backend-module-github-provider@npm:0.5.3":
+  version: 0.5.3
+  resolution: "@backstage/plugin-auth-backend-module-github-provider@npm:0.5.3"
   dependencies:
-    "@backstage/backend-plugin-api": "npm:^1.9.2"
-    "@backstage/plugin-auth-node": "npm:^0.7.2"
+    "@backstage/backend-plugin-api": "npm:^1.9.1"
+    "@backstage/plugin-auth-node": "npm:^0.7.1"
     passport-github2: "npm:^0.1.12"
     zod: "npm:^3.25.76 || ^4.0.0"
-  checksum: 10c0/b13a381713d4880c3356e7ec76427ea47eb23e88e7b68a35eedb68bab0a0bc9a34b3d2ba223739f81a906b6224d01eafd496bd38dd8ecfc4b435a573702d8a0d
+  checksum: 10c0/22797521d54303790a18ed49694d51971057d2e764476c702fb65443e6e957a5a2945e66c62041598a4a1887bd8b3125467cefb9cd69d0d63788f0349eaa3b12
   languageName: node
   linkType: hard
 
@@ -14381,7 +14381,7 @@ __metadata:
     "@backstage/config": "npm:^1.3.8"
     "@backstage/plugin-app-backend": "npm:^0.5.14"
     "@backstage/plugin-auth-backend": "npm:^0.29.0"
-    "@backstage/plugin-auth-backend-module-github-provider": "npm:^0.5.4"
+    "@backstage/plugin-auth-backend-module-github-provider": "npm:0.5.3"
     "@backstage/plugin-auth-backend-module-guest-provider": "npm:^0.2.19"
     "@backstage/plugin-auth-node": "npm:^0.7.1"
     "@backstage/plugin-catalog-backend": "npm:^3.7.0"
@@ -21631,13 +21631,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isolated-vm@npm:^4.7.2":
-  version: 4.7.2
-  resolution: "isolated-vm@npm:4.7.2"
+"isolated-vm@npm:^6.0.1":
+  version: 6.1.2
+  resolution: "isolated-vm@npm:6.1.2"
   dependencies:
     node-gyp: "npm:latest"
-    prebuild-install: "npm:^7.1.1"
-  checksum: 10c0/b7f3e17341477cf9dcca2c29b95d2b0f883894f107afc293827f76af8689bceae34520a114171417bdeb911c4da7b62caf7351b708d7b554eea912c636d122d8
+    node-gyp-build: "npm:^4.8.4"
+  checksum: 10c0/2209032b8296e6af49250f7e04ab904e9c331bbbf1bdf8eeca78e32ed6bd98c84ced42b785127f0f2828a1c5e66d82cb2bf1459e973620e19b485c5a00252e98
   languageName: node
   linkType: hard
 
