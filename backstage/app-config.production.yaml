@@ -19,19 +19,20 @@ backend:
       password: ${POSTGRES_PASSWORD}
 
 auth:
-  environment: production
-  providers:
+  environment: development
+  providers:                          # ← this block is missing
     github:
-      production:
+      development:
         clientId: ${AUTH_GITHUB_CLIENT_ID}
         clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
-        ## uncomment if using GitHub Enterprise
-        # enterpriseInstanceUrl: ${AUTH_GITHUB_ENTERPRISE_INSTANCE_URL}
+        callbackUrl: http://localhost:7007/api/auth/github/handler/frame
         signIn:
           resolvers:
-            # Matches the GitHub username with the Backstage user entity name.
-            # See https://backstage.io/docs/auth/github/provider#resolvers for more resolvers.
             - resolver: usernameMatchingUserEntityName
+              dangerouslyAllowSignInWithoutUserInCatalog: true
+    # ── Guest provider for local dev ──────────────────────────────
+    guest:
+      dangerouslyAllowOutsideDevelopment: false
 
 
 catalog:

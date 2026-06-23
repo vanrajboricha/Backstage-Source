@@ -12,6 +12,23 @@ app:
         config:
           path: /
 
+auth:
+  environment: development
+  providers:                          # ← this block is missing
+    github:
+      development:
+        clientId: ${AUTH_GITHUB_CLIENT_ID}
+        clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+        callbackUrl: http://localhost:7007/api/auth/github/handler/frame
+        signIn:
+          resolvers:
+            - resolver: usernameMatchingUserEntityName
+              dangerouslyAllowSignInWithoutUserInCatalog: true
+    # ── Guest provider for local dev ──────────────────────────────
+    guest:
+      dangerouslyAllowOutsideDevelopment: false
+
+
 organization:
   name: eInfochips
 
@@ -78,15 +95,15 @@ techdocs:
   publisher:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
-auth:
+      #auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
-  providers:
+  #providers:
     # See https://backstage.io/docs/auth/guest/provider
     # guest: {}
   # see https://backstage.io/docs/ai/mcp-actions#client-id-metadata-documents
   # to learn more about client id metadata documents
-  experimentalClientIdMetadataDocuments:
-    enabled: false
+  #experimentalClientIdMetadataDocuments:
+  # enabled: false
     # Optional: restrict which `client_id` URLs are allowed (defaults to ['*'])
     # allowedClientIdPatterns:
     #   - 'https://example.com/*'
