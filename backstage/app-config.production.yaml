@@ -25,12 +25,12 @@ auth:
       production:
         clientId: ${AUTH_GITHUB_CLIENT_ID}
         clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
-        signIn:
-          resolvers:
-            # Change this to the lenient profile resolver:
-            - resolver: usernameMatchingUserEntityName
-    guest:
-      dangerouslyAllowOutsideDevelopment: true
+    #     signIn:
+    #       resolvers:
+    #         # Change this to the lenient profile resolver:
+    #         - resolver: usernameMatchingUserEntityName
+    # #guest:
+    # #  dangerouslyAllowOutsideDevelopment: true
 
 
 catalog:
