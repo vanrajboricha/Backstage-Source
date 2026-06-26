@@ -99,7 +99,7 @@ const customAuth = createBackendModule({
 });
 
 backend.add(customAuth);
-
+backend.add(import('@backstage/plugin-auth-backend-module-oidc-provider'));
 // catalog plugin
 backend.add(import('@backstage/plugin-catalog-backend'));
 backend.add(

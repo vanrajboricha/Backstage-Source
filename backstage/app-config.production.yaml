@@ -32,11 +32,24 @@ auth:
     #         - resolver: usernameMatchingUserEntityName
     # #guest:
     # #  dangerouslyAllowOutsideDevelopment: true
+    oidc:
+      production:
+        # Internal Kubernetes DNS endpoint addresses Keycloak directly inside the cluster
+        metadataUrl: http://keycloak-service.default.svc.cluster.local:8080/realms/backstage-github/.well-known/openid-configuration
+        clientId: backstage-app
+        clientSecret: ${AUTH_OIDC_CLIENT_SECRET}
+        scopes:
+          - openid
+          - profile
+          - email
+        signIn:
+          resolvers:
+            - resolver: emailMatchingUserEntityProfileEmail
 
 
 catalog:
   rules:
-    - allow: [Component, System, API, Resource, Location, Template]
+    - allow: [Component, System, API, Resource, Location, Template, Group, User]
   locations:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
     - type: file
