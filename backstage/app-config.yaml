@@ -19,14 +19,14 @@ auth:
       development:
         clientId: ${AUTH_GITHUB_CLIENT_ID}
         clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
-        callbackUrl: http://localhost:7007/api/auth/github/handler/frame
-        signIn:
-          resolvers:
-            - resolver: usernameMatchingUserEntityName
-              dangerouslyAllowSignInWithoutUserInCatalog: true
-    # ── Guest provider for local dev ──────────────────────────────
-    guest:
-      dangerouslyAllowOutsideDevelopment: false
+        # callbackUrl: http://localhost:7007/api/auth/github/handler/frame
+    #     signIn:
+    #       resolvers:
+    #         - resolver: usernameMatchingUserEntityName
+    #           dangerouslyAllowSignInWithoutUserInCatalog: true
+    # # ── Guest provider for local dev ──────────────────────────────
+    # guest:
+    #   dangerouslyAllowOutsideDevelopment: false
 
 
 organization:
