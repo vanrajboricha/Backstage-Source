@@ -62,6 +62,11 @@ catalog:
       rules:
         - allow: [Group]
 
+    - type: system
+      target: /app/entities/system.yaml
+      rules:
+        - allow: [System]
+
     - type: url
       target: https://github.com/vanrajboricha/backstage-software-template/blob/main/python-app/template.yaml
       rules:
