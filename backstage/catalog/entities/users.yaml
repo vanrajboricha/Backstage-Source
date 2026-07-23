@@ -7,3 +7,23 @@ spec:
     displayName: vanrajboricha
     email: vanraj723@gmail.com
   memberOf: [development]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: 1rajboricha
+spec:
+  profile:
+    displayName: 1rajboricha
+    email: 1rajboricha@gmail.com
+  memberOf: [development]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: vanbor-723
+spec:
+  profile:
+    displayName: vanbor-723
+    email: vanraj723@gmail.com
+  memberOf: [devops]
