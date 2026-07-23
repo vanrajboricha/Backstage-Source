@@ -62,7 +62,7 @@ catalog:
       rules:
         - allow: [Group]
 
-    - type: system
+    - type: file
       target: /app/entities/system.yaml
       rules:
         - allow: [System]
